@@ -26,7 +26,7 @@ struct ContentView: View {
                 action: {
                     print("Patient Status")
                 }
-            )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
+            )
         }
         .padding()
         .background(Color(red: 1.0, green: 0.8, blue: 0.8))
