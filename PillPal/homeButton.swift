@@ -7,14 +7,19 @@
 
 import Foundation
 import SwiftUI
-
 struct ButtonView: View {
-    var label: String
-    var action: () -> Void = {}
-
+    let label: String
+    let action: () -> Void
+    
     var body: some View {
         Button(action: action) {
             Text(label)
+                .padding()
+                .frame(maxWidth: .infinity)
+                .background(Color.blue)
+                .foregroundColor(.white)
+                .cornerRadius(8)
         }
+        .buttonStyle(.plain)
     }
 }

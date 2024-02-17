@@ -15,6 +15,7 @@
 		0CAD8F952B81535A00CAE587 /* PillPalUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CAD8F942B81535A00CAE587 /* PillPalUITests.swift */; };
 		0CAD8F972B81535A00CAE587 /* PillPalUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CAD8F962B81535A00CAE587 /* PillPalUITestsLaunchTests.swift */; };
 		0CAD8FA42B8156E600CAE587 /* homeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CAD8FA32B8156E600CAE587 /* homeButton.swift */; };
+		0CBE4F372B817541001403DA /* patientPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CBE4F362B817541001403DA /* patientPage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		0CAD8F942B81535A00CAE587 /* PillPalUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillPalUITests.swift; sourceTree = "<group>"; };
 		0CAD8F962B81535A00CAE587 /* PillPalUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PillPalUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		0CAD8FA32B8156E600CAE587 /* homeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = homeButton.swift; sourceTree = "<group>"; };
+		0CBE4F362B817541001403DA /* patientPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = patientPage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +102,7 @@
 				0CAD8F782B81535900CAE587 /* PillPalApp.swift */,
 				0CAD8F7A2B81535900CAE587 /* ContentView.swift */,
 				0CAD8FA32B8156E600CAE587 /* homeButton.swift */,
+				0CBE4F362B817541001403DA /* patientPage.swift */,
 				0CAD8F7C2B81535A00CAE587 /* Assets.xcassets */,
 				0CAD8F7E2B81535A00CAE587 /* PillPal.entitlements */,
 				0CAD8F7F2B81535A00CAE587 /* Preview Content */,
@@ -264,6 +267,7 @@
 			files = (
 				0CAD8F7B2B81535900CAE587 /* ContentView.swift in Sources */,
 				0CAD8F792B81535900CAE587 /* PillPalApp.swift in Sources */,
+				0CBE4F372B817541001403DA /* patientPage.swift in Sources */,
 				0CAD8FA42B8156E600CAE587 /* homeButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
