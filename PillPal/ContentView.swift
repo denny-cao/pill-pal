@@ -10,12 +10,26 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         VStack {
-            Image(systemName: "globe")
+            Image(systemName: "pill")
                 .imageScale(.large)
                 .foregroundStyle(.tint)
-            Text("Hello, world!")
+            Text("Welcome to...")
+            Text("PillPal!")
+            ButtonView(
+                label: "Caregiver Portal",
+                action: {
+                    print("Caregiver Status")
+                }
+                )
+            ButtonView(
+                label: "Patient Portal",
+                action: {
+                    print("Patient Status")
+                }
+            )
         }
         .padding()
+        .background(Color(red: 1.0, green: 0.8, blue: 0.8))
     }
 }
 
