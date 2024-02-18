@@ -5,28 +5,38 @@ import os
 import requests
 import json
 import datetime
-import otp
+# import otp
 
 app = Flask(__name__)
 api = Api(app)
 
-conn = psycopg2.connect(
-    database="database"
-)
-cur = conn.cursor()
+url = "postgresql://postgres:cao3218787@localhost:5432/database"
+
+conn = psycopg2.connect(url)
+@app.get('/')
+def hello():
+    return "Hello World!"
 
 @app.post('/api/new-patient')
 def new_patient():
     data = request.get_json()
+    uid = data['uid']                                         
     name = data['name']
     number = data['phone_number']
     # Validate phone number (10 digits)
-    if len(number) != 10 or number.isdigit():
-        return "Invalid phone number", 400
-    elif cur.execute("SELECT * FROM patients WHERE phone_number = %s", (number,)):
-        return "Patient already exists", 400
+    query = "SELECT * FROM patients WHERE phone_number = '%s'" % (number)
+    with conn:
+        with conn.cursor() as cur:
+            if len(number) != 10:
+                return {"message": "Invalid phone number"}, 300
+            query = "SELECT * FROM patients WHERE phone_number = '%s'" % (number)
+            cur.execute(query)
+            if cur.fetchone():
+                return {"message": "Patient already exists"}, 400
 
-    cur.execute("INSERT INTO patients (name, phone_number) VALUES (%s, %s)", (name, number))
+            query = "INSERT INTO patients (name, phone_number, uid) VALUES ('%s', '%s', %s);" % (name, number, uid)
+            cur.execute(query)                         
+            return {"message": "Patient added"}, 200
 
 #     otp_instance = otp.OTP(number)
 #     otp_instance.send_otp()
@@ -82,14 +92,23 @@ def new_patient():
 @app.post('/api/new-caretaker')
 def new_caretaker():
     data = request.get_json()
-    patient_id = data['patient_id']
+    uid = data['uid']
+    caretaker_name = data['name']
+
     with conn:
-        if cur.execute("SELECT * FROM patients WHERE id = %s", (patient_id,)):
-            caretaker_name = data['name']
-            cur.execute("INSERT INTO caretakers (name, patient_id) VALUES (%s, %s)", (caretaker_name, patient_id))
-            return "Caretaker added", 200
-        else:
-            return "Patient does not exist", 400
+        with conn.cursor() as cur:
+            query = "SELECT * FROM patients WHERE uid = %s" % (uid)
+            cur.execute(query)
+            if cur.fetchone():
+                # Get patient id
+                query = "SELECT id FROM patients WHERE uid = %s" % (uid)
+                cur.execute(query)
+                patient_id = cur.fetchone()[0]
+                query = "INSERT INTO caretakers (name, patient_id) VALUES ('%s', %s);" % (caretaker_name, patient_id)
+                cur.execute(query)
+                return {"message": "Caretaker added"}, 200
+            else:
+                return {"message": "Patient does not exist"}, 400
 
 @app.post('/update-next-dose')
 def update_next_dose():
@@ -97,5 +116,12 @@ def update_next_dose():
     medication_id = data['medication_id']
     next_dose = data['next_dose']
     with conn:
-        cur.execute("UPDATE medications SET next_dose = %s WHERE id = %s", (next_dose, medication_id))
-        return "Next dose updated", 200
+        with conn.cursor() as cur:
+            query = "SELECT * FROM medications WHERE id = %s" % (medication_id)
+            cur.execute(query)
+            if cur.fetchone():
+                query = "UPDATE medications SET next_dose = '%s' WHERE id = %s" % (next_dose, medication_id)
+                cur.execute(query)
+                return {"message": "Next dose updated"}, 200
+            else:
+                return {"message": "Medication does not exist"}, 400    
