@@ -97,7 +97,15 @@ struct UniqueID: View {
     
     var body: some View {
         VStack {
-            Text("Thank you for your information!")
+            Text("Your submission is a SUCCESS!")
+            Text("Remember to NOT share your PillPal UniqueID with anyone but your trusted caregiver.")
+                .padding()
+                .multilineTextAlignment(.center)
+            Image(systemName: "smiley")
+                .imageScale(.large)
+                .foregroundStyle(.tint)
+                .padding()
+            
             Text("Your PillPal ID:  # \(randomCode)")
                 .font(.title)
         }
@@ -132,7 +140,6 @@ struct ContentView: View {
                 Text("Welcome to...")
                 Text("Pill Pal!")
                     .font(.headline)
-                //.padding()
                 
                 Image(systemName: "pill")
                     .imageScale(.large)
