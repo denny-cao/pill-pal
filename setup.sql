@@ -1,13 +1,13 @@
 -- Caretakers Table 
 CREATE TABLE caretakers (
     id SERIAL PRIMARY KEY,
+    patient_id INT REFERENCES patients(id),
     name VARCHAR(100) NOT NULL
 );
 
 -- Patients Table
 CREATE TABLE patients (
     id SERIAL PRIMARY KEY,
-    caretaker_id INT REFERENCES caretakers(id),
     name VARCHAR(100) NOT NULL,
     phone_number VARCHAR(20) NOT NULL
     uid INT NOT NULL
