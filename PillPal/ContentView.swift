@@ -7,37 +7,56 @@
 
 import SwiftUI
 
+struct PatientView: View {
+    var body: some View {
+        Text("Welcome to your PillPal Patient Portal!")
+        
+            .navigationTitle("Patient Portal")
+    }
+}
+
+struct CaregiverView: View {
+    var body: some View {
+        Text("Caregiver View")
+        Text("Enter your number and name por favor")
+            .navigationTitle("Caregiver Portal")
+    }
+}
+
 struct ContentView: View {
     var body: some View {
         NavigationView {
             VStack {
-                Image(systemName: "pill")
-                    .imageScale(.large)
-                    .foregroundStyle(.tint)
                 Text("Welcome to...")
                 Text("Pill Pal!")
-                ButtonView(
-                    label: "I'm a Caregiver!",
-                    action: {
-                        print("Caregiver")
-                    }
-                )
+                    .font(.headline)
+                    //.padding()
+                Image(systemName: "pill")
+                        .imageScale(.large)
+                        .foregroundStyle(.tint)
+
                 NavigationLink(destination: PatientView()) {
-                    ButtonView(
-                        label: "I'm a Patient!",
-                        action: {
-                            print("Patient")
-                        }
-                    )
+                    Text("I'm a Patient!")
+                        .padding()
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(8)
+                }
+                .padding(.bottom, 5)
+                NavigationLink(destination: CaregiverView()) {
+                    Text("I'm a Caregiver!")
+                        .padding()
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(8)
                 }
             }
             .padding()
             .background(Color.blue.opacity(0.2))
-            .navigationTitle("Pill Pal Home")
+            .navigationTitle("PillPal Home")
         }
     }
 }
-
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
