@@ -141,12 +141,10 @@ struct ContentView: View {
                 Text("Pill Pal!")
                     .font(.headline)
                 
-                Image(systemName: "pill")
-                    .imageScale(.large)
-                    .foregroundStyle(.tint)
-                
-                    .imageScale(.large)
-                    .foregroundStyle(.tint)
+                Image("pillPalLogo")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: 100, height: 100)
                 
                 NavigationLink(destination: PatientView()) {
                     Text("I'm a Patient!")
