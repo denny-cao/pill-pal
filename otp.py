@@ -25,7 +25,7 @@ class Otp:
     def send_otp(self):
         message = client.messages.create(
             body=f"Your OTP is: {self.otp}",
-            from_=",
+            from_="",
             to=self.phone_number
         )
         print(message.sid)

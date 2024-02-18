@@ -26,22 +26,24 @@ def new_patient():
     elif cur.execute("SELECT * FROM patients WHERE phone_number = %s", (number,)):
         return "Patient already exists", 400
 
-    otp_instance = otp.OTP(number)
-    otp_instance.send_otp()
-    return "OTP sent", 200
+    cur.execute("INSERT INTO patients (name, phone_number) VALUES (%s, %s)", (name, number))
 
-@app.post('/api/verify-patient-otp')
-def vertify_patient_otp():
-    data = request.get_json()
-    name = data['name']
-    number = data['phone_number']
-    user_otp = data['otp']
+#     otp_instance = otp.OTP(number)
+#     otp_instance.send_otp()
+#     return "OTP sent", 200
 
-    if otp.verify_otp(user_otp):
-        cur.execute("INSERT INTO patients (name, phone_number) VALUES (%s, %s)", (name, number))
-        return "Patient added", 200
-    else:
-        return "Invalid OTP", 400
+# @app.post('/api/verify-patient-otp')
+# def vertify_patient_otp():
+#     data = request.get_json()
+#     name = data['name']
+#     number = data['phone_number']
+#     user_otp = data['otp']
+
+#     if otp.verify_otp(user_otp):
+#         cur.execute("INSERT INTO patients (name, phone_number) VALUES (%s, %s)", (name, number))
+#         return "Patient added", 200
+#     else:
+#         return "Invalid OTP", 400
 
 # 
 #     if not cur.execute("SELECT * FROM patients WHERE phone_number = %s", (number,)):
