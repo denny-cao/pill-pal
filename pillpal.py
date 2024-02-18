@@ -16,7 +16,7 @@ conn = psycopg2.connect(
 cur = conn.cursor()
 
 @app.post('/api/new-patient')
-def new_patient_otp():
+def new_patient():
     data = request.get_json()
     name = data['name']
     number = data['phone_number']
