@@ -69,7 +69,6 @@ struct CaregiverView: View {
                         self.phoneNumber = filtered
                     }
                 }
-// this NEEDS to be fixed because rn it literally gives the careER an ID
             NavigationLink(destination: PatientConfirmation()) {
                 Text("Submit")
                     .padding()
