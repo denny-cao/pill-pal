@@ -10,18 +10,19 @@ import SwiftUI
 struct PatientView: View {
     @State private var name: String = ""
     @State private var phoneNumber: String = ""
-
+    @State private var isSubmitButtonTapped = false
+    
     var body: some View {
-
+        
         VStack {
             Text("Welcome to your PillPal Patient Portal!")
                 .font(.title2)
                 .padding()
-
+            
             TextField("Please enter your name here...", text: $name)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding()
-
+            
             TextField("Please enter your phone number here...", text: $phoneNumber)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding()
@@ -31,35 +32,40 @@ struct PatientView: View {
                         self.phoneNumber = filtered
                     }
                 }
-
-            NavigationLink(destination: UniqueID()) {
-                Text("Submit")
-                    .padding()
-                    .foregroundColor(.white)
-                    .background(Color.blue)
-                    .cornerRadius(10)
+            
+            NavigationLink(destination: UniqueID(), isActive: $isSubmitButtonTapped) {
+                Button(action: {
+                    isSubmitButtonTapped = true
+                }) {
+                    Text("Submit")
+                        .padding()
+                        .foregroundColor(.white)
+                        .background(Color.blue)
+                        .cornerRadius(10)
+                }
+                .buttonStyle(PlainButtonStyle()) // should be button now
             }
             .padding()
+            .navigationTitle("Patient Portal")
         }
-        .navigationTitle("Patient Portal")
     }
 }
 
 struct CaregiverView: View {
     @State private var name: String = ""
     @State private var phoneNumber: String = ""
-
-    var body: some View {
     
+    var body: some View {
+        
         VStack {
             Text("Welcome to your PillPal Caregiver Portal!")
                 .font(.title2)
                 .padding()
-
+            
             TextField("Please enter your name here...", text: $name)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding()
-
+            
             TextField("Please enter your phone number here...", text: $phoneNumber)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding()
@@ -88,7 +94,7 @@ struct UniqueID: View {
         let code = String((0..<6).map{ _ in digits.randomElement()! })
         return code
     }
-
+    
     var body: some View {
         VStack {
             Text("Thank you for your information!")
@@ -102,7 +108,7 @@ struct UniqueID: View {
 
 struct PatientConfirmation: View {
     @State var uniqueID = ""
-
+    
     var body: some View {
         VStack {
             Text("Enter your patient's PillPal Unique ID below:")
@@ -118,6 +124,7 @@ struct PatientConfirmation: View {
         }
     }
 }
+
 struct ContentView: View {
     var body: some View {
         NavigationView {
@@ -125,12 +132,12 @@ struct ContentView: View {
                 Text("Welcome to...")
                 Text("Pill Pal!")
                     .font(.headline)
-                    //.padding()
-
+                //.padding()
+                
                 Image(systemName: "pill")
-                        .imageScale(.large)
-                        .foregroundStyle(.tint)
-
+                    .imageScale(.large)
+                    .foregroundStyle(.tint)
+                
                     .imageScale(.large)
                     .foregroundStyle(.tint)
                 
