@@ -70,7 +70,7 @@ struct CaregiverView: View {
                     }
                 }
 // this NEEDS to be fixed because rn it literally gives the careER an ID
-            NavigationLink(destination: UniqueID()) {
+            NavigationLink(destination: PatientConfirmation()) {
                 Text("Submit")
                     .padding()
                     .foregroundColor(.white)
@@ -101,6 +101,24 @@ struct UniqueID: View {
     }
 }
 
+struct PatientConfirmation: View {
+    @State var uniqueID = ""
+
+    var body: some View {
+        VStack {
+            Text("Enter your patient's PillPal Unique ID below:")
+            TextField("######", text: $uniqueID)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .padding()
+        }
+        .onChange(of: uniqueID) { newValue in
+            let filtered = newValue.filter { $0.isNumber }
+            if filtered != newValue {
+                self.uniqueID = filtered
+            }
+        }
+    }
+}
 struct ContentView: View {
     var body: some View {
         NavigationView {
