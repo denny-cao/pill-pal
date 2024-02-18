@@ -5,17 +5,36 @@ import os
 import requests
 import json
 import datetime
+import dotenv
 # import otp
+
+dotenv.load_dotenv()
+
+password = os.getenv('PASSWORD')
 
 app = Flask(__name__)
 api = Api(app)
 
-url = "postgresql://postgres:cao3218787@localhost:5432/database"
+url = f"postgresql://postgres:{password}@localhost:5432/database"
 
 conn = psycopg2.connect(url)
 @app.get('/')
 def hello():
     return "Hello World!"
+
+@app.post('/api/check-unique-uid')
+def check_unique_uid():
+    data = request.get_json()
+    uid = data['uid']
+
+    with conn:
+        with conn.cursor() as cur:
+            query = "SELECT * FROM patients WHERE uid = %s" % (uid)
+            cur.execute(query)
+            if cur.fetchone():
+                return {"message": "UID already exists"}, 400
+            else:
+                return {"message": "UID is unique"}, 200
 
 @app.post('/api/new-patient')
 def new_patient():
