@@ -17,7 +17,7 @@ CREATE TABLE medications (
     id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     dosage VARCHAR(100) NOT NULL,
-    interval INT NOT NULL,
+    id INT NOT NULL,
     next_dose TIMESTAMP NOT NULL
 );
 

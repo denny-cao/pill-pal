@@ -1,0 +1,2 @@
+FLASH_APP=app
+FLASH_DEBUG=True
