@@ -130,6 +130,27 @@ def new_caretaker():
             else:
                 return {"message": "Patient does not exist"}, 400
 
+@app.post('/api/list-medications')
+def list_medications():
+    data = request.get_json()
+    patient_id = data['id']
+
+    with conn:
+        with conn.cursor() as cur:
+            query = "SELECT * FROM medications WHERE patient_id = %s" % (patient_id)
+            cur.execute(query)
+            meds = {}
+            medications = cur.fetchall()
+            for medication in medications:
+                meds[medication[0]] = {
+                    "name": medication[1],
+                    "dose": medication[2],
+                    "interval": medication[3],
+                    "next_dose": medication[4]
+                }
+        else:
+            return {"message": "Patient does not exist"}, 400
+
 @app.post('/api/update-next-dose')
 def update_next_dose():
     data = request.get_json()

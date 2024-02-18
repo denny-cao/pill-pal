@@ -19,7 +19,6 @@ CREATE TABLE medications (
     name VARCHAR(100) NOT NULL,
     dosage VARCHAR(100) NOT NULL,
     interval INT NOT NULL,
-    next_dose TIMESTAMP NOT NULL
 );
 
 -- Medications_Patients Table 

@@ -39,6 +39,8 @@ struct LocalNotification: View {
         VStack(spacing: 40) {
             Button("Request Permission") {
                 NotificationManager.instance.requestAuthorization()
+
+            Button("Schedule Notification") {
             }
         }
     }
