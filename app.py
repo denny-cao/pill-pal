@@ -6,6 +6,7 @@ import requests
 import json
 import datetime
 import dotenv
+import datetime
 # import otp
 
 dotenv.load_dotenv()
@@ -129,16 +130,19 @@ def new_caretaker():
             else:
                 return {"message": "Patient does not exist"}, 400
 
-@app.post('/update-next-dose')
+@app.post('/api/update-next-dose')
 def update_next_dose():
     data = request.get_json()
     medication_id = data['medication_id']
-    next_dose = data['next_dose']
     with conn:
         with conn.cursor() as cur:
             query = "SELECT * FROM medications WHERE id = %s" % (medication_id)
             cur.execute(query)
-            if cur.fetchone():
+            medication = cur.fetchone()
+            if medication:
+                # Update next dose
+                interval = medication[3]
+                next_dose = (datetime.datetime.now() + datetime.datetime.timedelta(hours=interval)).strftime('%Y-%m-%d %H:%M:%S')
                 query = "UPDATE medications SET next_dose = '%s' WHERE id = %s" % (next_dose, medication_id)
                 cur.execute(query)
                 return {"message": "Next dose updated"}, 200
