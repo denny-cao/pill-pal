@@ -10,6 +10,7 @@ CREATE TABLE patients (
     caretaker_id INT REFERENCES caretakers(id),
     name VARCHAR(100) NOT NULL,
     phone_number VARCHAR(20) NOT NULL
+    uid INT NOT NULL
 );
 
 -- Medications Table 
@@ -17,8 +18,7 @@ CREATE TABLE medications (
     id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     dosage VARCHAR(100) NOT NULL,
-    interval INT NOT NULL,
-    next_dose TIMESTAMP NOT NULL
+    id INT NOT NULL
 );
 
 -- Medications_Patients Table 
