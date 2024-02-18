@@ -10,17 +10,18 @@ import SwiftUI
 struct PatientView: View {
     @State private var name: String = ""
     @State private var phoneNumber: String = ""
-    
+
     var body: some View {
+
         VStack {
             Text("Welcome to your PillPal Patient Portal!")
                 .font(.title2)
                 .padding()
-            
+
             TextField("Please enter your name here...", text: $name)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding()
-            
+
             TextField("Please enter your phone number here...", text: $phoneNumber)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding()
@@ -30,7 +31,7 @@ struct PatientView: View {
                         self.phoneNumber = filtered
                     }
                 }
-            
+
             NavigationLink(destination: UniqueID()) {
                 Text("Submit")
                     .padding()
@@ -45,9 +46,40 @@ struct PatientView: View {
 }
 
 struct CaregiverView: View {
+    @State private var name: String = ""
+    @State private var phoneNumber: String = ""
+
     var body: some View {
-        Text("Caregiver View")
-            .navigationTitle("Caregiver Portal")
+    
+        VStack {
+            Text("Welcome to your PillPal Caregiver Portal!")
+                .font(.title2)
+                .padding()
+
+            TextField("Please enter your name here...", text: $name)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .padding()
+
+            TextField("Please enter your phone number here...", text: $phoneNumber)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .padding()
+                .onChange(of: phoneNumber) { newValue in
+                    let filtered = newValue.filter { $0.isNumber }
+                    if filtered != newValue {
+                        self.phoneNumber = filtered
+                    }
+                }
+// this NEEDS to be fixed because rn it literally gives the careER an ID
+            NavigationLink(destination: UniqueID()) {
+                Text("Submit")
+                    .padding()
+                    .foregroundColor(.white)
+                    .background(Color.blue)
+                    .cornerRadius(10)
+            }
+            .padding()
+        }
+        .navigationTitle("Caregiver Portal")
     }
 }
 
@@ -57,7 +89,7 @@ struct UniqueID: View {
         let code = String((0..<6).map{ _ in digits.randomElement()! })
         return code
     }
-    
+
     var body: some View {
         VStack {
             Text("Thank you for your information!")
@@ -65,6 +97,7 @@ struct UniqueID: View {
                 .font(.title)
         }
         .navigationTitle("PillPal Unique ID")
+        .navigationBarBackButtonHidden(true)
     }
 }
 
@@ -75,8 +108,12 @@ struct ContentView: View {
                 Text("Welcome to...")
                 Text("Pill Pal!")
                     .font(.headline)
-                
+                    //.padding()
+
                 Image(systemName: "pill")
+                        .imageScale(.large)
+                        .foregroundStyle(.tint)
+
                     .imageScale(.large)
                     .foregroundStyle(.tint)
                 
@@ -102,7 +139,6 @@ struct ContentView: View {
         }
     }
 }
-
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
