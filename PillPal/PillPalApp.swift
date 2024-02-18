@@ -11,7 +11,7 @@ import SwiftUI
 struct PillPalApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            careAddPatientView()
         }
     }
 }
